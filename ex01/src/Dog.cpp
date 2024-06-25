@@ -20,14 +20,14 @@ Dog& Dog::operator=(const Dog& src) {
 	return *this;
 }
 
-std::string Dog::getType() const {
-	return _type;
-}
-
 void Dog::makeSound() const {
 	std::cout << "Woof Woof" << std::endl;
 }
 
-void Dog::setType(std::string type) {
-	_type = type;
+std::string Dog::getIdea(int i)
+{
+    if (i >= 0 && i < 100)
+        return brain->returnIdea(i);
+    else
+        return "";
 }

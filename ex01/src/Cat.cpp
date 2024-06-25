@@ -31,3 +31,11 @@ void Cat::makeSound() const {
 void Cat::setType(std::string type) {
 	_type = type;
 }
+
+std::string Cat::getIdea(int i)
+{
+    if (i >= 0 && i < 100)
+        return brain->returnIdea(i);
+    else
+        return "";
+}

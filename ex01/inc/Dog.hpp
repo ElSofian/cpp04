@@ -11,9 +11,8 @@ class Dog : public Animal {
 		virtual ~Dog();
 		Dog& operator=(const Dog& src);
 
-		virtual std::string getType() const;
 		virtual void makeSound() const;
-		virtual void setType(std::string type);
+		std::string getIdea(int i);
 
 	private:
 		Brain* brain;

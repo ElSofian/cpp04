@@ -4,16 +4,15 @@
 # include "Animals.hpp"
 # include "Brain.hpp"
 
-class Cat : public Animal {
+class Cat : virtual public Animal {
 	public:
 		Cat();
 		Cat(const Cat& src);
 		virtual ~Cat();
 		Cat& operator=(const Cat& src);
 
-		virtual std::string getType() const;
 		virtual void makeSound() const;
-		virtual void setType(std::string type);
+		std::string getIdea(int i);
 	
 	private:
 		Brain* brain;
