@@ -1,37 +1,36 @@
-#include "Animals.hpp"
+#include "../inc/Animal.hpp"
 
-Animal::Animal() : _type() {
-	std::cout << "Animal constructor called" << std::endl;
+Animal::Animal(): type("Default Animal") {}
+
+Animal::Animal(const Animal &src) {
+	if (this != &src)
+		*this = src;
 }
 
-Animal::Animal(std::string type) : _type(type) {
-	std::cout << "Animal constructor called" << std::endl;
-}
-
-Animal::Animal(const Animal& src) {
-	*this = src;
-	std::cout << "Animal copy constructor called" << std::endl;
+Animal	&Animal::operator=(const Animal &src) {
+	if (this != &src)
+		type = src.type;
+	return(*this);
 }
 
 Animal::~Animal() {
-	std::cout << "Animal destructor called" << std::endl;
+	std::cout << type << " destroyed (Parent class)" << std::endl;
 }
 
-Animal& Animal::operator=(const Animal& src) {
-	if (this != &src)
-		setType(src.getType());
-	std::cout << "Animal assignment operator called" << std::endl;
-	return *this;
+void	Animal::makeSound() const {
+	std::cout <<  "random animal sound" << std::endl;
 }
 
-std::string Animal::getType() const {
-	return _type;
+std::string	Animal::getType() const {
+	return (this->type);
 }
 
-void Animal::makeSound() const {
-	std::cout << "Animal sound" << std::endl;
+void	Animal::setType(std::string str) {
+	this->type = str;
 }
 
-void Animal::setType(std::string type) {
-	_type = type;
+std::ostream	&operator<<(std::ostream &stream, const Animal &a)
+{
+	std::cout << "<< operator overload\n";
+	return stream;
 }

@@ -1,39 +1,46 @@
-#include "Animals.hpp"
-#include "Cat.hpp"
+#include "../inc/Cat.hpp"
 
-Cat::Cat() : Animal("Cat") {
-	std::cout << "Cat constructor called" << std::endl;
+static int nbCat = 0;
+
+Cat::Cat(): Animal() {
+    type = "Cat";
+    brain = new Brain();
+    nbCat +=1;
+    std::cout << "(Default Cat Constructor) Cat #" << nbCat << std::endl;
 }
 
-Cat::Cat(const Cat& src) : Animal(src) {
-	std::cout << "Cat copy constructor called" << std::endl;
+
+Cat::Cat(const Cat &a): Animal() {
+   type = a.type;
+   brain = new Brain(*(a.brain));
+   nbCat += 1;
+   std::cout << "(Default Cat Constructor 2) Cat #" << nbCat << std::endl;
+}
+
+Cat &Cat::operator=(const Cat &a) {
+    if (this != &a)
+    {
+        type = a.type;
+        Brain *tmp = new Brain();
+        tmp = a.brain;
+        *brain = *tmp;        
+        nbCat += 1;
+        std::cout << "(Copy Cat Constructor) Cat #" << nbCat << std::endl;
+    }
+    return (*this);
 }
 
 Cat::~Cat() {
-	std::cout << "Cat destructor called" << std::endl;
+    delete brain;
+    std::cout << type << " was destroyed" << std::endl;
 }
 
-Cat& Cat::operator=(const Cat& src) {
-	if (this != &src)
-		setType(src.getType());
-	std::cout << "Cat assignment operator called" << std::endl;
-	return *this;
-}
-
-std::string Cat::getType() const {
-	return _type;
-}
 
 void Cat::makeSound() const {
-	std::cout << "Meow Meow" << std::endl;
+    std::cout << "meow" << std::endl;
 }
 
-void Cat::setType(std::string type) {
-	_type = type;
-}
-
-std::string Cat::getIdea(int i)
-{
+std::string Cat::getIdea(int i) {
     if (i >= 0 && i < 100)
         return brain->returnIdea(i);
     else

@@ -1,33 +1,55 @@
-#include "Animals.hpp"
-#include "Dog.hpp"
+#include "../inc/Dog.hpp"
 
-Dog::Dog() : Animal("Dog") {
-	std::cout << "Dog constructor called" << std::endl;
+static int nbDog = 0;
+
+Dog::Dog(): Animal() {
+    type = "Dog";
+    brain = new Brain();
+    nbDog +=1;
+    std::cout << "(Default Dog Constructor) Dog #" << nbDog << std::endl;
 }
 
-Dog::Dog(const Dog& src) : Animal(src) {
-	std::cout << "Dog copy constructor called" << std::endl;
+
+Dog::Dog(const Dog &a): Animal() {
+   type = a.type;
+   brain = new Brain(*(a.brain));
+   nbDog += 1;
+   std::cout << "(Default Dog Constructor 2) Dog #" << nbDog << std::endl;
+}
+
+Dog &Dog::operator=(const Dog &a) {
+    if (this != &a)
+    {
+        type = a.type;
+        Brain *tmp = new Brain();
+        tmp = a.brain;
+        *brain = *tmp;
+        nbDog += 1;
+        std::cout << "(Copy Dog Constructor) Dog #" << nbDog << std::endl;
+    }
+    return (*this);
 }
 
 Dog::~Dog() {
-	std::cout << "Dog destructor called" << std::endl;
+    delete brain;
+    std::cout << type << " was destroyed" << std::endl;
 }
 
-Dog& Dog::operator=(const Dog& src) {
-	if (this != &src)
-		setType(src.getType());
-	std::cout << "Dog assignment operator called" << std::endl;
-	return *this;
-}
 
 void Dog::makeSound() const {
-	std::cout << "Woof Woof" << std::endl;
+    std::cout << "meow" << std::endl;
 }
 
-std::string Dog::getIdea(int i)
-{
+std::string Dog::getIdea(int i) {
     if (i >= 0 && i < 100)
         return brain->returnIdea(i);
     else
         return "";
 }
+
+// Brain* Dog::getBrain() const
+// {
+//     if (brain)
+//         return (brain);
+//     return (NULL);
+// }

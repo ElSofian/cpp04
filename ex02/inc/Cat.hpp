@@ -1,18 +1,23 @@
-#ifndef CAT_HPP
-# define CAT_HPP
+#ifndef CAT_H
+# define CAT_H
 
-# include "Animals.hpp"
+# include "Animal.hpp"
+# include "Brain.hpp"
 
-class Cat : public Animal {
-	public:
-		Cat();
-		Cat(const Cat& src);
-		virtual ~Cat();
-		Cat& operator=(const Cat& src);
+class Cat: virtual public Animal
+{
+    private:
+        Brain *brain;
 
-		virtual std::string getType() const;
-		virtual void makeSound() const;
-		virtual void setType(std::string type);
+    public:
+        Cat();
+        Cat(const Cat& c);
+        virtual ~Cat();
+        Cat& operator=(const Cat& c);
+        
+        virtual void makeSound() const;
+        std::string getIdea(int i);
+        std::string getType() const;
 };
 
 #endif

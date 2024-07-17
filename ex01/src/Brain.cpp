@@ -1,34 +1,4 @@
-#include "Brain.hpp"
-
-Brain::Brain() {
-	std::cout << "Brain constructor called" << std::endl;
-}
-
-Brain::Brain(const Brain& src) {
-	std::cout << "Brain copy constructor called" << std::endl;
-	for (int i = 0; i < 100; i++)
-		ideas[i] = src.getIdea(i);
-}
-
-Brain::~Brain() {
-	std::cout << "Brain destructor called" << std::endl;
-}
-
-Brain& Brain::operator=(const Brain& src) {
-	if (this != &src) {
-		for (int i = 0; i < 100; i++)
-			ideas[i] = src.getIdea(i);
-	}
-	std::cout << "Brain assignment operator called" << std::endl;
-	return *this;
-}
-
-std::string Brain::returnIdea(int i) {
-    if (i >= 0 && i < 100)
-        return ideas[i];
-    else
-        return "";
-}
+#include "../inc/Brain.hpp"
 
 std::string generateIdea() {
     const std::string ideas[150] =
@@ -154,4 +124,36 @@ std::string generateIdea() {
         "I enjoy doing yoga in the morning."
     };
     return ideas[rand() % 100];
+}
+
+Brain::Brain() {
+    std::cout << "#Default Brain Constructor" << std::endl;
+    for (int i = 0; i < 100; i++)
+        ideas[i] = generateIdea();
+}
+
+Brain::Brain(const Brain& b) {
+    *this = b;
+    std::cout << "#Copy Brain Constructor" << std::endl;
+}
+
+Brain& Brain::operator=(const Brain& b) {
+    if (this != &b)
+    {
+        for (int i = 0; i < 100; i++)
+            ideas[i] = b.ideas[i];
+    }
+    std::cout << "#Copy Brain Operator (Deep Copy)" << std::endl;
+    return (*this);
+}
+
+std::string Brain::returnIdea(int i) {
+    if (i >= 0 && i < 100)
+        return ideas[i];
+    else
+        return "";
+}
+
+Brain::~Brain() {
+    std::cout << "#Default Brain Destructor" << std::endl;
 }

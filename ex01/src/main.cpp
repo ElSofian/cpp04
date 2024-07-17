@@ -1,6 +1,6 @@
-#include "Animals.hpp"
-#include "Dog.hpp"
-#include "Cat.hpp"
+#include "../inc/Animal.hpp"
+#include "../inc/Dog.hpp"
+#include "../inc/Cat.hpp"
 
 int main()
 {
@@ -14,13 +14,17 @@ int main()
 		std::cout << std::endl;
 		delete array[i];
 	}
-	// basic
+
+	std::cout << "------------------" << std::endl;
+
 	Dog basic;
 	{
 		Dog tmp = basic;
 	}
 	std::cout << "end\n";
-	// return ;
+	// return (0);
+
+	std::cout << "------------------" << std::endl;
 
 	// DEEP COPY TEST
 	Cat test  = Cat();
@@ -33,4 +37,6 @@ int main()
 
 	test = test2;
 	std::cout << test.getIdea(99) << std::endl;
+	
+	return (0);
 }
